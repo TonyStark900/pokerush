@@ -9,7 +9,6 @@ const Shiny = require('../../db/shiny.js');
 const Gen8 = require('../../db/gen8.js');
 const Forms = require('../../db/forms.js');
 const Galarians = require('../../db/galarians.js');
-const Alolans = require('../../db/alolans.js');
 const Mega = require('../../db/mega.js');
 const Concept = require('../../db/concept.js');
 const ShinyMega = require('../../db/mega-shiny.js');
@@ -99,10 +98,10 @@ module.exports = {
                 ctx.strokeRect(0, 0, canvas.width, canvas.height);
 
                 const poke1 = await Canvas.loadImage(url); // Battleer pokemon image url here 
-                ctx.drawImage(poke1, 390, 15, 200, 200);
+                ctx.drawImage(poke1, 390, 15, 270, 270);
            
                 const poke2 = await Canvas.loadImage(url1); 
-                 ctx.drawImage(poke2, 20, 15, 200, 200);
+                 ctx.drawImage(poke2, 20, 15, 270, 270);
               
 
                 let hp = /* totalHPofauthor */ Math.floor(Math.floor((2 * user.pokemons[selected].hp + user.pokemons[selected].hp + (0 / 4) * user.pokemons[selected].level) / 100) + user.pokemons[selected].level + 10);
@@ -119,7 +118,7 @@ module.exports = {
 
                 let PokemonSpeed = Math.floor(Math.floor((2 * user.pokemons[selected].speed + user.pokemons[selected].speed + (0 / 4) * user.pokemons[selected].level) / 100) + user.pokemons[selected].level + 10);
                 let pokemonTwoSpeed = Math.floor(Math.floor((2 * user2.pokemons[selected1].speed + user2.pokemons[selected1].speed + (0 / 4) * user2.pokemons[selected1].level) / 100) + user2.pokemons[selected1].level + 10);
-                //console.log(PokemonSpeed+"    "+pokemonTwoSpeed);
+
                 let used = null;
                 let used2 = null;
                 let filter = mes => [message.author.id, user1.id].includes(mes.author.id) && mes.content.toLowerCase().startsWith(`${prefix.toLowerCase()}use`)
@@ -166,7 +165,7 @@ module.exports = {
                             .setFooter("Do p!moves to check your pokemon's moves and do p!use <move_no.> to attack !!")
 
                         em.edit(embed)
-                        if (hp < 1) {
+                        if (hp < 1 || hp1 < 1) {
                             Duelcollector.stop();
                             cooldown.delete(message.author.id);
                             cooldown.delete(user.id)
@@ -188,34 +187,34 @@ module.exports = {
                                 .setImage("attachment://" + "Battle.png")
                                 .setColor(color)
                             return em.edit(embed)
-                        }
-                    } else {
-                      let damage = Math.floor(Math.random() * 20) + 5;
-                        hp1 = hp1 - damage
+                         }
+                     } else {
+                       let damage = Math.floor(Math.random() * 20) + 5;
+                         hp1 = hp1 - damage
 
-                        let damage1 =  Math.floor(Math.random() * 20) + 5;
-                        hp = hp - damage1
-                        if (hp < 1) hp = 0
-                        if (hp1 < 1) hp1 = 0
-                        embed
-                            .setDescription(`<@${message.author.id}>'s ${user.pokemons[selected].name.capitalize()} VS <@${user1.id}>'s ${user2.pokemons[selected1].name.capitalize()}\n\n${user1} has used move and dealt ${damage} Damage.\n${message.author} has used move and dealt ${damage1} Damage.\n\n${user.pokemons[selected].name}: ${hp}\n${user2.pokemons[selected1].name}: ${hp1}`)
-                            .attachFiles([{ name: "Battle.png", attachment: canvas.toBuffer() }])
-                            .setImage("attachment://" + "Battle.png")
-                            .setColor(color)
-                        em.edit(embed)
-                        if (hp < 1) {
-                            Duelcollector.stop();
-                            cooldown.delete(message.author.id);
-                            cooldown.delete(user.id)
-                            embed
-                                .setTitle (`Battle ended!`)
-                                .setDescription(`<@${message.author.id}>'s ${user.pokemons[selected].name.capitalize()} VS <@${user1.id}>'s ${user2.pokemons[selected1].name.capitalize()}\n\nBattle ended and ${user1} won the Battle and was rewarded with 10  :money_bag: Coins`)
-                                .attachFiles([{ name: "Battle.png", attachment: canvas.toBuffer() }])
-                                .setImage("attachment://" + "Battle.png")
-                                .setColor(color)
-                            return em.edit(embed)
-                            //Battle ended and ${user1} won the Battle and was rewarded with 10  :money_bag: Coins
-                        } else if (hp1 < 1) {
+                         let damage1 =  Math.floor(Math.random() * 20) + 5;
+                         hp = hp - damage1
+                         if (hp < 1) hp = 0
+                         if (hp1 < 1) hp1 = 0
+                         embed
+                             .setDescription(`<@${message.author.id}>'s ${user.pokemons[selected].name.capitalize()} VS <@${user1.id}>'s ${user2.pokemons[selected1].name.capitalize()}\n\n${user1} has used move and dealt ${damage} Damage.\n${message.author} has used move and dealt ${damage1} Damage.\n\n${user.pokemons[selected].name}: ${hp}\n${user2.pokemons[selected1].name}: ${hp1}`)
+                           .attachFiles([{ name: "Battle.png", attachment: canvas.toBuffer() }])
+                             .setImage("attachment://" + "Battle.png")
+                             .setColor(color)
+                         em.edit(embed)
+                         if (hp < 1 || hp1 < 1) {
+                             Duelcollector.stop();
+                             cooldown.delete(message.author.id);
+                             cooldown.delete(user.id)
+                             embed
+                                 .setTitle (`Battle ended!`)
+                                 .setDescription(`<@${message.author.id}>'s ${user.pokemons[selected].name.capitalize()} VS <@${user1.id}>'s ${user2.pokemons[selected1].name.capitalize()}\n\nBattle ended and ${user1} won the Battle and was rewarded with 10  :money_bag: Coins`)
+                                 .attachFiles([{ name: "Battle.png", attachment: canvas.toBuffer() }])
+                                 .setImage("attachment://" + "Battle.png")
+                                 .setColor(color)
+                             return em.edit(embed)
+                             // Battle ended and ${user1} won the Battle and was rewarded with 10  :money_bag: Coins
+                        } else if (hp1 < 1 || hp < 1) {
                             Duelcollector.stop();
                             cooldown.delete(message.author.id);
                             cooldown.delete(user.id)
