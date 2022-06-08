@@ -10,14 +10,14 @@
 
   special: ["645667411609255948" , "704282858793205790"],
 
-  mongo_atlas: {
-    username: "TheOne",
-    password: "TheOne1327",
-    cluster: "TheOne",
+ mongo_atlas: {
+    username: process.env.username,
+    password: process.env.password,
+    cluster: process.env.cluster,
     shard: {
-      one: "theone-shard-00-00.i7wt4.mongodb.net:27017",
-      two: "theone-shard-00-01.i7wt4.mongodb.net:27017",
-      three: "theone-shard-00-02.i7wt4.mongodb.net:27017"
+      one: process.env.shard1,
+      two: process.env.shard2,
+      three: process.env.shard3
     }
   },
   webhooks: {
