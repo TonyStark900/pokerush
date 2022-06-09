@@ -18,7 +18,7 @@ module.exports = {
 
       
       let embed = new MessageEmbed()
-      .setDescription(`**[Click Here to add pokérush to your server.](https://discord.com/api/oauth2/authorize?client_id=982772830204727356&permissions=388160&scope=bot)**`)
+      .setDescription(`**[Click Here to add pokérush to your server.](https://discord.com/api/oauth2/authorize?client_id=681241406311891001&permissions=388160&scope=bot)**`)
       .setFooter("")
       .setColor(color)
       message.channel.send(embed)
